@@ -1,0 +1,24 @@
+form {
+	display: grid;
+	max-width: 600px;
+	min-width: 400px;
+	width: 50%;
+	margin: 0 auto;
+}
+
+.success,
+.error {
+	margin: 10px auto 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 400px;
+}
+
+.success {
+	background-color: green;
+}
+
+.error {
+	background-color: red;
+}

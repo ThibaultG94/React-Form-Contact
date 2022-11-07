@@ -6,34 +6,51 @@ const FormTemplate = () => {
 
 	const sendEmail = (e) => {
 		e.preventDefault();
+		const formMessage = document.querySelector('.form-message');
 
 		emailjs
 			.sendForm(
-				'YOUR_SERVICE_ID',
-				'YOUR_TEMPLATE_ID',
+				'service_adfkhc8',
+				'template_96ais68',
 				form.current,
-				'YOUR_PUBLIC_KEY'
+				process.env.REACT_APP_ID
 			)
 			.then(
 				(result) => {
 					console.log(result.text);
+					form.current.reset();
+					formMessage.innerHTML =
+						"<p class='success'>Message envoyé !</p>";
+
+					setTimeout(() => {
+						formMessage.innerHTML = '';
+					}, 2500);
 				},
 				(error) => {
 					console.log(error.text);
+					formMessage.innerHTML =
+						"<p class='error'>Une erreur s'est produite, veuillez réessayez plus tard</p>";
+
+					setTimeout(() => {
+						formMessage.innerHTML = '';
+					}, 2500);
 				}
 			);
 	};
 
 	return (
-		<form ref={form} onSubmit={sendEmail}>
-			<label>Name</label>
-			<input type="text" name="name" required autoComplete="off" />
-			<label>Email</label>
-			<input type="email" name="email" required autoComplete="off" />
-			<label>Message</label>
-			<textarea name="message" required />
-			<input type="submit" value="Envoyer" />
-		</form>
+		<div className="form-container">
+			<form ref={form} onSubmit={sendEmail}>
+				<label>Name</label>
+				<input type="text" name="name" required autoComplete="off" />
+				<label>Email</label>
+				<input type="email" name="email" required autoComplete="off" />
+				<label>Message</label>
+				<textarea name="message" required />
+				<input type="submit" value="Envoyer" />
+			</form>
+			<div className="form-message"></div>
+		</div>
 	);
 };
 
